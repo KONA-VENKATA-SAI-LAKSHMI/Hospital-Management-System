@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>{{ title }}</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Oswald"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"
+    />
+    <link rel="stylesheet" href="../static/css/styles.css" />
+    {% block head %}
+    <!-- internal css goes here -->
+    {% endblock %}
+  </head>
+
+  <body>
+    <header>
+      <nav
+        class="navbar navbar-light navbar-expand-md navigation-clean"
+        style="background-color: transparent;"
+      >
+        <div class="container">
+          <a
+            class="navbar-brand"
+            href="#"
+            style="font-family: Oswald, sans-serif;"
+            >ABC Hospital Management System</a
+          ><button
+            data-toggle="collapse"
+            class="navbar-toggler"
+            data-target="#navcol-1"
+          >
+            <span class="sr-only">Toggle navigation</span
+            ><span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="nav navbar-nav ml-auto">
+              <li class="nav-item" role="presentation">
+                <a class="nav-link {% if home %} active {% endif %}" href="/">Home</a>
+              </li>
+              {% if session['username'] %}
+              <li class="nav-item dropdown">
+                <a
+                  class="dropdown-toggle nav-link"
+                  data-toggle="dropdown"
+                  aria-expanded="false"
+                  href="#"
+                  >Patient</a
+                >
+                <div class="dropdown-menu" role="menu">
+                  <a
+                    class="dropdown-item"
+                    role="presentation"
+                    href="/CreatePatient"
+                    >Create Patient</a
+                  ><a
+                    class="dropdown-item"
+                    role="presentation"
+                    href="/UpdatePatient"
+                    >Update Patient</a
+                  ><a
+                    class="dropdown-item"
+                    role="presentation"
+                    href="/DeletePatient"
+                    >Delete Patient</a
+                  ><a
+                    class="dropdown-item"
+                    role="presentation"
+                    href="/ViewAllPatients"
+                    >View Patients</a
+                  ><a
+                    class="dropdown-item"
+                    role="presentation"
+                    href="/SearchPatient"
+                    >Search Patient</a
+                  ><a
+                    class="dropdown-item"
+                    role="presentation"
+                    href="/FinalBilling"
+                    >Patient Billing</a
+                  >
+                </div>
+              </li>
+              
+              <li class="nav-item dropdown">
+                <a
+                  class="dropdown-toggle nav-link"
+                  data-toggle="dropdown"
+                  aria-expanded="false"
+                  href="#"
+                  >Pharmacy</a
+                >
+                <div class="dropdown-menu" role="menu">
+                  <a
+                    class="dropdown-item"
+                    role="presentation"
+                    href="/GetPatientDetails/Medicine"
+                    >Get Patient Details</a
+                  ><a
+                    class="dropdown-item"
+                    role="presentation"
+                    href="/IssueMedicine"
+                    >Issue Medicines</a
+                  >
+                </div>
+              </li>
+
+              <li class="nav-item dropdown">
+                <a
+                  class="dropdown-toggle nav-link"
+                  data-toggle="dropdown"
+                  aria-expanded="false"
+                  href="#"
+                  >Diagnostics</a
+                >
+                <div class="dropdown-menu" role="menu">
+                  <a
+                    class="dropdown-item"
+                    role="presentation"
+                    href="/GetPatientDetails/Diagnostics"
+                    >Get Patient Details</a
+                  ><a
+                    class="dropdown-item"
+                    role="presentation"
+                    href="/Diagnostics"
+                    >Diagnostics Screen</a
+                  >
+                </div>
+              </li>
+              {% endif %}
+              <li class="nav-item" style="background-color: var(--origin); color: var(--light); border-radius: 5px;">
+                {% if session.get('username') %}
+                <a class="nav-link" href="/logout" style="color: var(--light);">Logout</a>
+                {% else %}
+                <a class="nav-link" href="/login" style="color: var(--light);">Login</a>
+                {% endif %}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <!--Flash message start-->
+      <!--Old Code
+      <div class="text-center">
+        {% if alert %}
+        <div class="alert alert-danger">{{alert}}</div>  
+        {% endif %} 
+        {% with messages=get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-success">{{message}}</div>  
+    
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+      </div>
+      -->
+      <div class="text-center">
+        {% with messages=get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{category}}">{{message}}</div>     
+          {% endfor %}
+        {% endif %}
+        {% endwith %}
+      </div>
+      <!--Flash message end-->
+
+      {% block content %}
+      <!-- Block Content goes here -->
+      {% endblock %}
+    </main>
+    <div class="footer-clean">
+      <footer>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-sm-4 col-md-3 item">
+              <h3>Services</h3>
+              <ul>
+                <li>Hospital Management System</li>
+                <li><a href="#">Inventory Management System</a></li>
+                <li><a href="#">Business Consultancy</a></li>
+              </ul>
+            </div>
+            <div class="col-sm-4 col-md-3 item">
+              <h3>About</h3>
+              <ul>
+                <li><a href="#">Company</a></li>
+                <li><a href="#">Team</a></li>
+                <li><a href="#">Legacy</a></li>
+              </ul>
+            </div>
+            <div
+              class="col-sm-4 col-md-3 text-center item"
+              style="padding-top: 0px; padding-bottom: 0px;"
+            >
+              <img
+                src="../static/img/logo.svg"
+                style="
+                  width: 135px;
+                  filter: grayscale(100%) hue-rotate(360deg) invert(100%);
+                "
+              />
+            </div>
+            <div class="col-lg-3 item social">
+              <a href="#"><i class="icon ion-social-facebook"></i></a
+              ><a href="#"><i class="icon ion-social-twitter"></i></a
+              ><a href="#"><i class="icon ion-social-linkedin"></i></a
+              ><a href="#"><i class="icon ion-email"></i></a>
+              <p class="copyright">ABC Hospital © 2020</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    {% block script %}
+    <!-- internal script goes here -->
+    {% endblock %}
+  </body>
+</html>

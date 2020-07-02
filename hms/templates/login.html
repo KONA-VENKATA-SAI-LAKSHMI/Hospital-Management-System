@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container login-container">
+    <div>
+        <div class="login-form-2 text-center">
+            <h3>Login</h3>
+            <form method="POST" action="/" novalidate>
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                   {{form.username(class_="form-control",placeholder="login id")}} 
+                   {% for err in form.username.errors%}
+                   <span style="color:red">{{err}}</span>
+                   {%endfor%}
+                </div>
+                <div class="form-group">
+                  {{form.password(class_="form-control",placeholder='password')}} 
+                  {% for err in form.password.errors%}
+                   <span style="color:red">{{err}}</span>
+                   {%endfor%}
+
+                </div>
+                <div class="form-group">
+                   {{ form.submit(class_="btnSubmit") }}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

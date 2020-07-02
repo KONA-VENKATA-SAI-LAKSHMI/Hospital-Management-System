@@ -1,0 +1,70 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<script src="../static/js/cities.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container login-container">
+    <div>
+        <div class="login-form-2 text-center">
+            <h3>Update a Patient</h3>
+            <form name="patient" method="POST" action="/patient" id="form1" novalidate>
+                
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Patient SSN ID" value="" />
+                </div>
+                <div class="form-group ">
+                    <input type="submit" class="btnSubmit text-center" value="Get Patient"/>                    
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Patient Name" value="" disabled/>
+                </div>
+                <div class="form-group">
+                    <input type="number" class="form-control" placeholder="Age" value="" min="1" disabled/>
+                </div>
+                <div class="form-group">
+                    <label for="doa">Date of Admission</label>
+                    <input name="doa" type="date" class="form-control" placeholder="Date of Admission" value="" disabled/>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Patient SSN ID" value="" disabled/>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Patient SSN ID" value="" disabled/>
+                </div>
+                <div class="form-group">
+                    <select id="bed-type" name="bed-type" form="patient" class="form-control" disabled>
+                        <option value="">Select a bed type....</option>
+                        <option value="general">General</option>
+                        <option value="semi">Semi</option>
+                        <option value="single">Single</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select onchange="print_city('state', this.selectedIndex);" id="sts" name ="stt" class="form-control" disabled></select>                   
+                </div>
+                <div class="form-group">
+                    <select id ="state" class="form-control" disabled>
+                        <option value="">Select city</option>
+                    </select>                    
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btnSubmit" value="Create" /> 
+                                     
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    function Reset() {
+      document.getElementById("form1").reset();
+    }
+</script>
+<script language="javascript">print_state("sts");</script>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<script src="../static/js/cities.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container login-container">
+    <div>
+        <div class="login-form-2 text-center">
+            <h3>Search for Patient</h3>
+            <form name="patient" method="POST" action={{url_for('search_patient')}} id="form1" novalidate>
+                {{form.hidden_tag()}}
+                
+                <div class="form-group">
+                    {{form.patient_id.label}}
+                    {{form.patient_id(class_="form-control",placeholder="PATIENT ID")}}
+                    {% for err in form.patient_id.errors %}
+                    <span style="color: red;">[{{ err }}]</span>
+                     {% endfor %}
+                </div>
+                <div class="form-group ">
+                      
+                    {{form.submit(class_='btnSubmit text-center')}}                 
+                </div>
+                <div class="form-group">
+                    {%for patient1 in patient%}
+                    
+                    <label>Patient id</label>
+                    <input type="text" class="form-control" placeholder='{{patient1.id}}'  disabled/>
+                </div>
+                
+                <div class="form-group">
+                    <label>Patient name</label>
+                    <input type="text" class="form-control" placeholder='{{patient1.name}}' value="" disabled/>
+                </div>
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="number" class="form-control" placeholder='{{patient1.age}}' value="" min="1" disabled/>
+                </div>
+                <div class="form-group">
+                    <label>Admission date</label>
+                    <input name="doa" type="text" class="form-control" placeholder='{{patient1.admission_date}}' value="" disabled/>
+                </div>
+                <div class="form-group">
+                    <label>Bed type</label>
+                    <input name="doa" type="text" class="form-control" placeholder='{{patient1.bed_type}}' value="" disabled/>
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" class="form-control" placeholder='{{patient1.address}}' value="" disabled/>
+                </div>
+                <div class="form-group">
+                    <label>State</label>
+                    <input type="text" class="form-control" placeholder='{{patient1.state}}' value="" disabled/>
+                </div>
+                <div class="form-group">
+                        <label>City</label>
+                    <input type="text" class="form-control" placeholder='{{patient1.city}}' value="" disabled/>
+                </div>
+                {% endfor %}               
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    function Reset() {
+      document.getElementById("form1").reset();
+    }
+</script>
+<script language="javascript">print_state("sts");</script>
+{% endblock %}

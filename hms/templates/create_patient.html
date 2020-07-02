@@ -1,0 +1,85 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<script src="../static/js/cities.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container login-container">
+    <div>
+        <div class="login-form-2 text-center">
+            <h3>Patient Registration</h3>
+            <form name="patient" method="POST" action="/CreatePatient" id="form1" novalidate>
+                {{form.hidden_tag()}}
+        
+                <div class="form-group">
+                    {{form.ssn_id.label}}
+                    {{form.ssn_id(class_="form-control",placeholder="SSN ID")}}
+                    {% for err in form.ssn_id.errors %}
+                    <span style="color: red;">[{{ err }}]</span>
+                     {% endfor %}
+                </div>
+                <div class="form-group">
+                    {{form.patient_name.label}}
+                    {{form.patient_name(class_="form-control",placeholder="Patient name")}}
+                    {% for err in form.patient_name.errors %}
+                    <span style="color: red;">[{{ err }}]</span>
+                    
+                     {% endfor %}
+                </div>
+                <div class="form-group">
+                    {{form.patient_age.label}}
+                    {{form.patient_age(class_="form-control",placeholder="Age")}}
+                    {% for err in form.patient_age.errors %}
+                    <span style="color: red;">[{{ err }}]</span>
+                     {% endfor %}
+                </div>
+                <div class="form-group">
+                    {{form.date.label}}
+                    {{form.date(class_="form-control",placeholder="CCYY-MM-DD")}}
+                    {% for err in form.date.errors %}
+                    <span style="color: red;">[{{ err }}]</span>
+                     {% endfor %}
+                </div>
+                <div class="form-group">
+                    {{form.Type_of_bed.label}}
+                    {{form.Type_of_bed(class_="form-control",placeholder="Type of Bed")}}
+                    {% for err in form.Type_of_bed.errors %}
+                    <span style="color: red;">[{{ err }}]</span>
+                     {% endfor %}
+                </div>
+                <div class="form-group">
+                    {{form.address.label}}
+                    {{form.address(class_="form-control",placeholder="Address")}}
+                    {% for err in form.address.errors %}
+                    <span style="color: red;">[{{ err }}]</span>
+                     {% endfor %}
+                </div>
+                <div class="form-group">
+                    <label for="stt">Select State</label>
+                    <select onchange="print_city('state', this.selectedIndex);" id="sts" name ="stt" class="form-control" required></select>                   
+                </div>
+                <div class="form-group">
+                    <label for="bed">Select City</label>
+                    <select name="state_list" id ="state" class="form-control" required>
+                    </select>                    
+                </div>
+                <div class="form-group" style="display: inline;">
+                    <!--<input type="submit" class="btnSubmit" value="Create" style="float: left; width: 50%;"/>-->
+                    {{form.submit(class="btnSubmit")}}
+                    <input class="btnSubmit text-center" value="🔃 Reset " onclick="Reset()" style="float: right; width: 40%;"/>                    
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    function Reset() {
+      document.getElementById("form1").reset();
+    }
+</script>
+<script language="javascript">print_state("sts");</script>
+{% endblock %}
